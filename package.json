@@ -1,0 +1,12 @@
+{
+  "name": "electron",
+  "productName": "Electron",
+  "main": "src/main.js",
+  "dependencies": {
+    "ffi": "node-ffi/node-ffi#gh-241",
+    "nodobjc": "tootallnate/NodObjC"
+  },
+  "devDependencies": {
+    "electron-packager": "^5.1.1"
+  }
+}

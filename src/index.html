@@ -1,0 +1,65 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+  <h1 id="keyDisp" class="shadow1">
+  </h1>
+  <script>
+    "use strict";
+    const $ = require('nodobjc');
+    const ipc = require("electron").ipcRenderer;
+    //const ipc = require('ipc');
+
+    $.import('Foundation');
+    $.import('Cocoa');
+
+    console.log("AXIsProcessTrusterd : " + $.AXIsProcessTrusted());
+    const elm = document.getElementById('keyDisp');
+    const specialMap = {
+      "36":"&#x23ce;",
+      "53":"&#x238B;",
+      "48":"&#x21E5;",
+      "49":"&#x2423;",
+      "51":"&#x232b;",
+      // arrow
+      "123":"&#x2190;",
+      "124":"&#x2192;",
+      "126":"&#x2191;",
+      "125":"&#x2193;",
+    }
+    // 同期
+    ipc.on('keydn', function(e, m) {
+      const keyInfo = JSON.parse(m);
+      console.log(keyInfo);
+      console.log($.NSShiftKeyMask);
+      //console.log($.NSShiftKeyMask);
+      let modSym = "";
+      const specialKey = specialMap[""+keyInfo.keyCode]
+      if(specialKey) {
+        keyInfo.characters = specialKey;
+        keyInfo.charactersIgnoringModifiers = specialKey;
+      }
+      if((keyInfo.flags & $.NSShiftKeyMask)!=0) {
+        //console.log("NSShiftKeyMask");
+        modSym += "&#x21E7;";
+      }
+      if((keyInfo.flags & $.NSControlKeyMask)!=0) {
+        modSym += "^";
+      }
+      if((keyInfo.flags & $.NSAlternateKeyMask)!=0) {
+        modSym += "&#x2325;";
+      }
+      if((keyInfo.flags & $.NSCommandKeyMask)!=0) {
+        modSym += "&#x2318;";
+      }
+      if((keyInfo.flags & ($.NSControlKeyMask|$.NSAlternateKeyMask|$.NSCommandKeyMask))==0) {
+        elm.innerHTML = keyInfo.characters;
+      } else {
+        elm.innerHTML = modSym+keyInfo.charactersIgnoringModifiers.toUpperCase();
+      }
+      //console.log(modSym);
+    });
+  </script>
+</body>
+</html>

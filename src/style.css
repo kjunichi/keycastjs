@@ -1,0 +1,15 @@
+.shadow1 {
+  font-size: 5em;
+color: #FFF;
+text-shadow:
+  -3px -3px #000,
+  3px -3px #000,
+  -3px 3px #000,
+  3px 3px #000;
+}
+
+body {
+  -webkit-app-region: drag; /* ドラッグ可能に */
+  -webkit-user-select: none; /* ドラッグはテキスト選択と競合するので禁止 */
+  font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "游ゴシック", "Yu Gothic", "メイリオ", Meiryo, Osaka, sans-serif;
+}
