@@ -7,6 +7,8 @@
     "nodobjc": "tootallnate/NodObjC"
   },
   "devDependencies": {
-    "electron-packager": "^5.1.1"
+    "electron-packager": "^5.1.1",
+    "electron-prebuilt": "^0.35.4",
+    "electron-rebuild": "^1.0.2"
   }
 }
