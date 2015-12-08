@@ -2,6 +2,9 @@
   "name": "electron",
   "productName": "Electron",
   "main": "src/main.js",
+  "scripts": {
+    "install": "node_modules/.bin/electron-rebuild&&node_modules/.bin/electron-packager . KeyCastJs --platform=darwin --arch=x64 --version=0.35.4"
+  },
   "dependencies": {
     "ffi": "node-ffi/node-ffi#gh-241",
     "nodobjc": "tootallnate/NodObjC"
