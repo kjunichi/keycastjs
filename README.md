@@ -18,7 +18,8 @@ Once you start KeyCastJs.app and Quit it.
 open KeyCastJs-darwin-x64/KeyCastJs.app
 ```
 
-Then, open Privacy & Security tab at control panels.Check the box which named KeyCastJs
+Open the System Preferences, then you open Privacy & Security and select the Privacy tab.
+Check the box which named KeyCastJs
 
 ![Check that](http://cdn-ak.f.st-hatena.com/images/fotolife/k/kjw_junichi/20151207/20151207073228.png)
 
