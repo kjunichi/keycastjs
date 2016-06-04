@@ -3,11 +3,11 @@
   "productName": "KeyCast.js",
   "main": "src/main.js",
   "scripts": {
-    "install": "./node_modules/.bin/electron-rebuild -w ref && ./node_modules/.bin/electron-rebuild -w ffi && ./node_modules/.bin/electron-packager . KeyCastJs --platform=darwin --arch=x64 --version=0.35.4"
+    "install": "./node_modules/.bin/electron-rebuild -w ref && ./node_modules/.bin/electron-rebuild -w ffi && ./node_modules/.bin/electron-packager . KeyCastJs --platform=darwin --arch=x64 --version=0.35.6"
   },
   "dependencies": {
     "ffi": "node-ffi/node-ffi#gh-241",
-    "nodobjc": "tootallnate/NodObjC"
+    "nodobjc": "^2.1.0"
   },
   "devDependencies": {
     "electron-packager": "^5.1.1",
