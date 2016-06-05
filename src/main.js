@@ -5,6 +5,7 @@ const BrowserWindow = require('browser-window'); // Module to create native brow
 const dialog = require('dialog');
 const ipc = require("electron").ipcMain;
 const $ = require('nodobjc');
+const spawn = require('child_process').spawn;
 
 $.import('Foundation');
 $.import('Cocoa');
@@ -20,19 +21,19 @@ const keyDownHandler = $((s,e)=>{
     console.log(e);
     //console.log(e('keyCode'));
     function getHtml(keyInfo) {
-      function getModSym(keyInfo) {
+      function getModSym(flags) {
           let modSym = "";
-          if((keyInfo.flags & $.NSShiftKeyMask)!=0) {
+          if((flags & $.NSShiftKeyMask)!=0) {
             //console.log("NSShiftKeyMask");
             modSym += "&#x21E7;";
           }
-          if((keyInfo.flags & $.NSControlKeyMask)!=0) {
+          if((flags & $.NSControlKeyMask)!=0) {
             modSym += "^";
           }
-          if((keyInfo.flags & $.NSAlternateKeyMask)!=0) {
+          if((flags & $.NSAlternateKeyMask)!=0) {
             modSym += "&#x2325;";
           }
-          if((keyInfo.flags & $.NSCommandKeyMask)!=0) {
+          if((flags & $.NSCommandKeyMask)!=0) {
             modSym += "&#x2318;";
           }
           return modSym;
@@ -56,7 +57,7 @@ const keyDownHandler = $((s,e)=>{
         keyInfo.charactersIgnoringModifiers = specialKey;
       }
 
-      const modSym = getModSym(keyInfo);
+      const modSym = getModSym(keyInfo.flags);
 
       if((keyInfo.flags & ($.NSControlKeyMask|$.NSAlternateKeyMask|$.NSCommandKeyMask))==0) {
         return keyInfo.characters;
@@ -116,7 +117,9 @@ app.on('ready', function() {
   });
   mainWindow.webContents.on('did-finish-load', function() {
     if(!$.AXIsProcessTrusted()){
-      mainWindow.toggleDevTools();
+      //mainWindow.toggleDevTools();
+      spawn("open", ["/System/Library/PreferencePanes/Security.prefPane"]);
+      app.quit();
     }
 
     $.NSEvent('addGlobalMonitorForEventsMatchingMask',
