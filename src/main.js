@@ -16,15 +16,63 @@ require('crash-reporter').start();
 // be closed automatically when the javascript object is GCed.
 let mainWindow = null;
 
-const keyDownHandler = $(function(s,e){
+const keyDownHandler = $((s,e)=>{
     console.log(e);
     //console.log(e('keyCode'));
+    function getHtml(keyInfo) {
+      function getModSym(keyInfo) {
+          let modSym = "";
+          if((keyInfo.flags & $.NSShiftKeyMask)!=0) {
+            //console.log("NSShiftKeyMask");
+            modSym += "&#x21E7;";
+          }
+          if((keyInfo.flags & $.NSControlKeyMask)!=0) {
+            modSym += "^";
+          }
+          if((keyInfo.flags & $.NSAlternateKeyMask)!=0) {
+            modSym += "&#x2325;";
+          }
+          if((keyInfo.flags & $.NSCommandKeyMask)!=0) {
+            modSym += "&#x2318;";
+          }
+          return modSym;
+      }
+      const specialMap = {
+        "36":"&#x23ce;",
+        "53":"&#x238B;",
+        "48":"&#x21E5;",
+        "49":"&#x2423;",
+        "51":"&#x232b;",
+        // arrow
+        "123":"&#x2190;",
+        "124":"&#x2192;",
+        "126":"&#x2191;",
+        "125":"&#x2193;",
+      };
+      //console.log($.NSShiftKeyMask);
+      const specialKey = specialMap[""+keyInfo.keyCode]
+      if(specialKey) {
+        keyInfo.characters = specialKey;
+        keyInfo.charactersIgnoringModifiers = specialKey;
+      }
+
+      const modSym = getModSym(keyInfo);
+
+      if((keyInfo.flags & ($.NSControlKeyMask|$.NSAlternateKeyMask|$.NSCommandKeyMask))==0) {
+        return keyInfo.characters;
+      }
+      return modSym+keyInfo.charactersIgnoringModifiers.toUpperCase();
+    }
+
+    const keyInfo = {
+      "characters": e('characters')('UTF8String'),
+      "flags": e('modifierFlags'),
+      "charactersIgnoringModifiers": e('charactersIgnoringModifiers')('UTF8String'),
+      "keyCode": e('keyCode')
+    };
+    keyInfo.html = getHtml(keyInfo);
     mainWindow.webContents.send('keydn',
-      JSON.stringify({
-        characters: e('characters')('UTF8String'),
-        flags: e('modifierFlags'),
-        charactersIgnoringModifiers: e('charactersIgnoringModifiers')('UTF8String'),
-        keyCode: e('keyCode')}));
+      JSON.stringify(keyInfo));
 },['v',['?','@']]);
 
 // Quit when all windows are closed.
@@ -58,7 +106,7 @@ app.on('ready', function() {
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-	mainWindow.toggleDevTools();
+
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
     // Dereference the window object, usually you would store windows
@@ -67,6 +115,10 @@ app.on('ready', function() {
     mainWindow = null;
   });
   mainWindow.webContents.on('did-finish-load', function() {
+    if(!$.AXIsProcessTrusted()){
+      mainWindow.toggleDevTools();
+    }
+
     $.NSEvent('addGlobalMonitorForEventsMatchingMask',
       $.NSKeyDownMask,
       'handler',
