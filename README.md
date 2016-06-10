@@ -22,7 +22,7 @@ The System Preferences is shown.check the box which named KeyCastJs.
 
 ![Check that](http://cdn-ak.f.st-hatena.com/images/fotolife/k/kjw_junichi/20151207/20151207073228.png)
 
-you have to reopen the app.
+reopen the app.
 
 ```
 open KeyCastJs-darwin-x64/KeyCastJs.app
