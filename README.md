@@ -12,16 +12,17 @@ npm install
 
 ## Usage
 
-Once you start KeyCastJs.app and Quit it.
+start KeyCastJs.app.
 
 ```
 open KeyCastJs-darwin-x64/KeyCastJs.app
 ```
 
-Open the System Preferences, then you open Privacy & Security and select the Privacy tab.
-Check the box which named KeyCastJs
+The System Preferences is shown.check the box which named KeyCastJs.
 
 ![Check that](http://cdn-ak.f.st-hatena.com/images/fotolife/k/kjw_junichi/20151207/20151207073228.png)
+
+you have to reopen the app.
 
 ```
 open KeyCastJs-darwin-x64/KeyCastJs.app
