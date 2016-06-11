@@ -1,17 +1,15 @@
 "use strict";
 
-const app = require('app'); // Module to control application life.
-const BrowserWindow = require('browser-window'); // Module to create native browser window.
-const dialog = require('dialog');
-const ipc = require("electron").ipcMain;
+const electron = require('electron');
+const {app} = electron; // Module to control application life.
+const {BrowserWindow} = electron; // Module to create native browser window.
+const {dialog} = electron;
+const {ipcMain} = electron;
 const $ = require('nodobjc');
 const spawn = require('child_process').spawn;
 
 $.import('Foundation');
 $.import('Cocoa');
-
-// Report crashes to our server.
-require('crash-reporter').start();
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
@@ -94,7 +92,7 @@ app.on('ready', function() {
     transparent: true, frame: false
   });
 
-  ipc.on('openFileDialog', function(event, arg) {
+  ipcMain.on('openFileDialog', function(event, arg) {
     dialog.showOpenDialog({
       properties: ['openFile', 'multiSelections']
     }, function(filePath) {

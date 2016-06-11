@@ -7,12 +7,12 @@
   </h1>
   <script>
     "use strict";
-    const ipc = require("electron").ipcRenderer;
+    const {ipcRenderer} = require("electron");
 
     const elm = document.getElementById('keyDisp');
 
     // 同期
-    ipc.on('keydn', function(e, m) {
+    ipcRenderer.on('keydn', function(e, m) {
       const keyInfo = JSON.parse(m);
       console.log(keyInfo);
       elm.innerHTML = keyInfo.html;
