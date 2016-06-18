@@ -21,6 +21,9 @@ const keyDownHandler = $((s,e)=>{
     function getHtml(keyInfo) {
       function getModSym(flags) {
           let modSym = "";
+          if((flags & $.NSCommandKeyMask)!=0) {
+            modSym += "&#x2318;";
+          }
           if((flags & $.NSShiftKeyMask)!=0) {
             //console.log("NSShiftKeyMask");
             modSym += "&#x21E7;";
@@ -31,9 +34,7 @@ const keyDownHandler = $((s,e)=>{
           if((flags & $.NSAlternateKeyMask)!=0) {
             modSym += "&#x2325;";
           }
-          if((flags & $.NSCommandKeyMask)!=0) {
-            modSym += "&#x2318;";
-          }
+
           return modSym;
       }
       const specialMap = {
