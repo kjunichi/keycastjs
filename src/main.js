@@ -69,6 +69,7 @@ const keyDownHandler = $((s, e) => {
             "64": "[F17]",
             "79": "[F18]",
             "80": "[F19]",
+            "63": "[Fn]",
         };
         //console.log($.NSShiftKeyMask);
         const specialKey = specialMap["" + keyInfo.keyCode]
