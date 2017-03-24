@@ -28,4 +28,7 @@ reopen the app.
 open KeyCastJs-darwin-x64/KeyCastJs.app
 ```
 
+This software is released under the MIT License, see LICENSE.txt.
+
 Enjoy!
+
